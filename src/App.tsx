@@ -1,7 +1,7 @@
 import type { Component } from "solid-js";
 
 const App: Component = () => {
-  return <> Hello </>;
+  return <h1> Hello </h1>;
 };
 
 export default App;
