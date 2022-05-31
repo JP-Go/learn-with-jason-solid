@@ -22,7 +22,7 @@ const getScheduleDataAsJSON = async () => {
   return scheduleData.json();
 };
 
-const getEpisodeDataAsJSON = async (slug: string) => {
+const getEpisodeDataAsJSON = async (slug: string| boolean) => {
   //  return fetch(`https://www.learnwithjason.dev/api/episode/${slug}`).then(
   //    (res) => res.json()
   // );
