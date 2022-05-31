@@ -15,7 +15,7 @@ export default function Counter() {
   createEffect(() => {
     // using a reactive component in createEffect, reruns this effect
     console.log("Teste de reatividade", count());
-  });
+  });// Oh look, no dependecy array
 
   return (
     <div>
