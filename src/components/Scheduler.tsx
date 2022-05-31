@@ -14,6 +14,10 @@ interface ScheduleItem {
 }
 
 type Schedule = Array<ScheduleItem>;
+type Episode = {
+  slug: { current: string };
+  title: string;
+};
 
 const getScheduleDataAsJSON = async () => {
   const scheduleData = await fetch(
@@ -22,7 +26,7 @@ const getScheduleDataAsJSON = async () => {
   return scheduleData.json();
 };
 
-const getEpisodeDataAsJSON = async (slug: string| boolean) => {
+const getEpisodeDataAsJSON = async (slug: String | Boolean) => {
   //  return fetch(`https://www.learnwithjason.dev/api/episode/${slug}`).then(
   //    (res) => res.json()
   // );
@@ -40,12 +44,21 @@ export default function Scheduler() {
     getScheduleDataAsJSON
   );
   // Why slug must start with false?
-  const [episode] = createResource(slug, getEpisodeDataAsJSON);
-  function handleSelect(event: any) {
-    setSlug(event.target.value);
+  const [episode]: ResourceReturn<Episode> = createResource(
+    slug,
+    getEpisodeDataAsJSON
+  );
+  function handleSelect(event: InputEvent | null) {
+    if (event === null) {
+      setSlug(false);
+      return;
+    }
+    setSlug(event.target?.value);
   }
   // Use the For directive to iterate a list
-  // syntax: <For each={List}>{(item) => something to transform the item }</>
+  // syntax: <For each={List}>{(item) => something to transform the item }</For>
+  // Use the Show directive to show an item when some data is available
+  // Syntax: <Show when={SomeBooleanLikeValue} >{what to show}</Show>
   return (
     <div>
       <select onInput={handleSelect}>
